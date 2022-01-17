@@ -1,11 +1,12 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import { Footer } from "../components/footer";
+import Navigation from "../components/navigation";
 import { IProductsData } from "../interfaces/product.def";
 import styles from "../styles/Home.module.css";
 
 const Home: NextPage<IProductsData> = ({ data }) => {
-  // const { products } = data;
   console.log(data);
   return (
     <div className={styles.container}>
@@ -14,6 +15,7 @@ const Home: NextPage<IProductsData> = ({ data }) => {
         <meta name="description" content="Board Game Rent" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Navigation />
 
       <main className={styles.main}>
         <h1 className={styles.title}>Welcome to Board Game Rent</h1>
@@ -37,7 +39,7 @@ const Home: NextPage<IProductsData> = ({ data }) => {
         </div>
       </main>
 
-      <footer className={styles.footer}>Copyright Mateusz Myrcik</footer>
+      <Footer />
     </div>
   );
 };
