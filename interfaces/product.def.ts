@@ -11,17 +11,17 @@ export interface IPlayersNumb {
 export interface IProduct {
   _id: string;
   __v: number;
-  title: string;
-  body: string;
-  playTime: IPlayTime;
-  playersNumb: IPlayersNumb;
-  difficultyLevel: string;
-  category: string;
-  image: string;
+  title?: string;
+  body?: string;
+  playTime?: IPlayTime;
+  playersNumb?: IPlayersNumb;
+  difficultyLevel?: string;
+  category?: string;
+  image?: string;
   reservation?: number;
   prize?: number;
   suggestAge?: number;
-  designer: string;
+  designer?: string;
 }
 
 export interface IProductsData {
