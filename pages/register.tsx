@@ -7,7 +7,8 @@ import { BoardGamesApiURL } from "../interfaces/generic.def";
 import { IProductsData } from "../interfaces/product.def";
 import styles from "../styles/Home.module.css";
 
-const Login: NextPage<IProductsData> = () => {
+const Register: NextPage<IProductsData> = ({ data }) => {
+  console.log(data);
   return (
     <div className="bg-stone-50">
       <Head>
@@ -18,7 +19,7 @@ const Login: NextPage<IProductsData> = () => {
       <Navigation />
 
       <main className={styles.main}>
-        <AuthForm type={AuthFormType.Login} />
+        <AuthForm type={AuthFormType.Registration} />
       </main>
 
       <Footer />
@@ -29,7 +30,6 @@ const Login: NextPage<IProductsData> = () => {
 export async function getServerSideProps() {
   const res = await fetch(BoardGamesApiURL.Products, {
     mode: "no-cors",
-    
   });
 
   const data = await res.json();
@@ -47,4 +47,4 @@ export async function getServerSideProps() {
   };
 }
 
-export default Login;
+export default Register;

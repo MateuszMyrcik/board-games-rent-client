@@ -7,15 +7,16 @@ interface Props {}
 
 const Navigation = (props: Props) => {
   return (
-    <nav>
-      <ul className="flex justify-center space-x-10 items-center border-b-2 h-10 bg-indigo-700 text-white">
-        <li>
+    <nav className="flex justify-between space-x-10 items-center border-b-2 h-20 bg-indigo-700 text-white">
+      <img className="h-20" src="/logo.png" alt="logo" />
+      <ul className="flex  justify-end">
+        <li className="mx-5 hover:animate-spin">
           <Link href="/">Home</Link>
         </li>
-        <li>
-          <Link href="/login">Admin Panel</Link>
+        <li className="mx-5 hover:animate-spin">
+          <Link href="/login">Login</Link>
         </li>
-        <li>
+        <li className="mx-5 hover:animate-spin">
           <Link href="/products">Products</Link>
         </li>
       </ul>

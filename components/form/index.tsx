@@ -69,14 +69,12 @@ export const Form: React.FunctionComponent<IFormProps> = (props) => {
   const handleSubmit = (event: any) => {
     fetch("http://localhost:3000/products", {
       method: "POST",
-      mode: "cors",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(form),
     }).catch((err) => {
       console.log(err);
-      debugger;
     });
 
     // event.preventDefault();
