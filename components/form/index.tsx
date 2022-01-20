@@ -23,6 +23,7 @@ export const Form: React.FunctionComponent<IFormProps> = (props) => {
     prize: "",
     suggestAge: "",
     designer: "",
+    isRented: "",
   });
   // _id: '';
   // __v: number;

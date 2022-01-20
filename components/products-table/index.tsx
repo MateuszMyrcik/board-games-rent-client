@@ -18,9 +18,9 @@ export const ProductsTable: React.FunctionComponent<IProductsTableProps> = (
 
   const { data: profile, isLoading, isError } = useUserProfile();
 
-  const isAdmin = profile !== null;
+  const isAdmin = profile?.username?.length > 0;
 
-  const onClickRemoveRow = (e) => {
+  const onClickRemoveRow = (e: any) => {
     const productId = e.target.id;
     console.log(productId);
     setProducts(products.filter((product) => product._id !== productId));
@@ -28,7 +28,30 @@ export const ProductsTable: React.FunctionComponent<IProductsTableProps> = (
       method: "DELETE",
     })
       .then((response) => response.json())
-      .then((response) => console.log(response))
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const onCheckboxChange = (e: any) => {
+    const productId = e.target.id;
+    debugger;
+    fetch(`${BoardGamesApiURL.Products}/${productId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ isRented: e.target.checked }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((response) => {
+        console.log(response);
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -81,6 +104,7 @@ export const ProductsTable: React.FunctionComponent<IProductsTableProps> = (
                 </thead>
                 <tbody className="text-sm divide-y divide-gray-100">
                   {products.map((product, id) => {
+                    // const checked = product.isRented
                     return (
                       <tr key={id}>
                         <td className="p-2 whitespace-nowrap">
@@ -114,8 +138,20 @@ export const ProductsTable: React.FunctionComponent<IProductsTableProps> = (
                         </td>
                         <td className="p-2 whitespace-nowrap">
                           <div className="text-left font-medium">
-                            <FontAwesomeIcon icon={faCheck} />
-                            <FontAwesomeIcon icon={faTimes} />
+                            {(() => {
+                              if (isAdmin)
+                                return (
+                                  <input
+                                    type="checkbox"
+                                    id={product._id}
+                                    defaultChecked={product.isRented}
+                                    onChange={(e) => onCheckboxChange(e)}
+                                  />
+                                );
+                              if (product.isRented)
+                                return <FontAwesomeIcon icon={faCheck} />;
+                              else return <FontAwesomeIcon icon={faTimes} />;
+                            })()}
                           </div>
                         </td>
                         {isAdmin && (

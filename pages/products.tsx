@@ -14,6 +14,8 @@ import useUserProfile from "../lib/hooks/userProfile";
 config.autoAddCss = false;
 
 const Products: NextPage<IProductsData> = ({ data }) => {
+  console.log(data[0]);
+
   return (
     <div className="bg-stone-50 h-screen">
       <Head>

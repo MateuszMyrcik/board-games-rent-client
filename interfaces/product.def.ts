@@ -22,6 +22,7 @@ export interface IProduct {
   prize?: number;
   suggestAge?: number;
   designer?: string;
+  isRented?: boolean;
 }
 
 export interface IProductsData {
