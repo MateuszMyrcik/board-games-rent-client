@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Router from "next/router";
 import { useState } from "react";
 import { BoardGamesApiURL } from "../../interfaces/generic.def";
 
@@ -27,7 +28,16 @@ const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ type }) => {
       body: JSON.stringify(authState),
     })
       .then((response) => {
-        console.log(response);
+        if (response.status === 401) {
+          alert("Invalid user data");
+          resetState();
+        } else {
+          alert("Your are logged in!");
+
+          Router.push({
+            pathname: "/products",
+          });
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -56,6 +66,12 @@ const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ type }) => {
         if (response.status === 400) {
           alert("Username is already in use");
           resetState();
+        } else {
+          alert("Your registration was succesfull!");
+
+          Router.push({
+            pathname: "/login",
+          });
         }
       })
       .catch((err) => {
