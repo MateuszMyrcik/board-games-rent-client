@@ -12,3 +12,8 @@ export const BoardGamesApiURL = {
   Profile: `${BOARD_GAMES_API_URL}/profile`,
   Products: `${BOARD_GAMES_API_URL}/products`,
 };
+
+export interface IUserProfil {
+  userId: string;
+  username: string;
+}

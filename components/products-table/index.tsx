@@ -1,7 +1,9 @@
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useState } from "react";
+import { BoardGamesApiURL } from "../../interfaces/generic.def";
 import { IProduct } from "../../interfaces/product.def";
+import useUserProfile from "../../lib/hooks/userProfile";
 
 interface IProductsTableProps {
   data: IProduct[];
@@ -11,6 +13,26 @@ export const ProductsTable: React.FunctionComponent<IProductsTableProps> = (
   props
 ) => {
   const { data } = props;
+
+  const [products, setProducts] = useState(data);
+
+  const { data: profile, isLoading, isError } = useUserProfile();
+
+  const isAdmin = profile !== null;
+
+  const onClickRemoveRow = (e) => {
+    const productId = e.target.id;
+    console.log(productId);
+    setProducts(products.filter((product) => product._id !== productId));
+    fetch(`${BoardGamesApiURL.Products}/${productId}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((response) => console.log(response))
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <section className="antialiased bg-gray-100 text-gray-600 px-4 py-10">
@@ -48,10 +70,17 @@ export const ProductsTable: React.FunctionComponent<IProductsTableProps> = (
                         Is available?
                       </div>
                     </th>
+                    {isAdmin && (
+                      <th className="p-2 whitespace-nowrap">
+                        <div className="font-semibold text-left">
+                          Remove row
+                        </div>
+                      </th>
+                    )}
                   </tr>
                 </thead>
                 <tbody className="text-sm divide-y divide-gray-100">
-                  {data.map((product, id) => {
+                  {products.map((product, id) => {
                     return (
                       <tr key={id}>
                         <td className="p-2 whitespace-nowrap">
@@ -69,7 +98,8 @@ export const ProductsTable: React.FunctionComponent<IProductsTableProps> = (
                         </td>
                         <td className="p-2 whitespace-nowrap">
                           <div className="text-left font-medium">
-                            {product.playersNumb?.from}-{product.playersNumb?.to}
+                            {product.playersNumb?.from}-
+                            {product.playersNumb?.to}
                           </div>
                         </td>
                         <td className="p-2 whitespace-nowrap">
@@ -88,6 +118,17 @@ export const ProductsTable: React.FunctionComponent<IProductsTableProps> = (
                             <FontAwesomeIcon icon={faTimes} />
                           </div>
                         </td>
+                        {isAdmin && (
+                          <td className="p-2 whitespace-nowrap  hover:cursor-pointer">
+                            <button
+                              id={product._id}
+                              onClick={(event) => onClickRemoveRow(event)}
+                              className="text-left font-medium underline"
+                            >
+                              Click to remove row
+                            </button>
+                          </td>
+                        )}
                       </tr>
                     );
                   })}

@@ -29,7 +29,6 @@ const Login: NextPage<IProductsData> = () => {
 export async function getServerSideProps() {
   const res = await fetch(BoardGamesApiURL.Products, {
     mode: "no-cors",
-    
   });
 
   const data = await res.json();

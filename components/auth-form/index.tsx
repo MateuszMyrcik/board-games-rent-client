@@ -31,13 +31,18 @@ const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ type }) => {
         if (response.status === 401) {
           alert("Invalid user data");
           resetState();
+          throw "Invalid user data";
         } else {
           alert("Your are logged in!");
-
-          Router.push({
-            pathname: "/products",
-          });
+          return response.json();
         }
+      })
+      .then((response) => {
+        sessionStorage.setItem("token", response.acces_token);
+
+        Router.push({
+          pathname: "/products",
+        });
       })
       .catch((err) => {
         console.log(err);

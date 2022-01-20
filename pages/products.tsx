@@ -6,14 +6,14 @@ import { IProductsData } from "../interfaces/product.def";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { config, dom } from "@fortawesome/fontawesome-svg-core";
-import { AccountType } from "../interfaces/generic.def";
+import { AccountType, BoardGamesApiURL } from "../interfaces/generic.def";
 import { ProductsTable } from "../components/products-table";
 import { Form } from "../components/form";
+import { useEffect, useState } from "react";
+import useUserProfile from "../lib/hooks/userProfile";
 config.autoAddCss = false;
 
 const Products: NextPage<IProductsData> = ({ data }) => {
-  const userType = AccountType.Admin;
-
   return (
     <div className="bg-stone-50 h-screen">
       <Head>
