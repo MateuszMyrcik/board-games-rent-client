@@ -1,4 +1,4 @@
-import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faTimes, faSort } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { BoardGamesApiURL } from "../../interfaces/generic.def";
@@ -15,6 +15,8 @@ export const ProductsTable: React.FunctionComponent<IProductsTableProps> = (
   const { data } = props;
 
   const [products, setProducts] = useState(data);
+  const [ascendingSorting, setAscendingSorting] = useState(false);
+  const [activeSorting, setActiveSorting] = useState("title");
 
   const { data: profile, isLoading, isError } = useUserProfile();
 
@@ -61,6 +63,37 @@ export const ProductsTable: React.FunctionComponent<IProductsTableProps> = (
     form?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const sortRows = (sortedField: string) => {
+    let sortedProducts = [...products];
+
+    sortedProducts.sort((a, b) => {
+      const aProduct =
+        typeof a[sortedField] === "object"
+          ? a[sortedField]["from"]
+          : a[sortedField];
+      const bProduct =
+        typeof b[sortedField] === "object"
+          ? b[sortedField]["from"]
+          : b[sortedField];
+
+      if (aProduct < bProduct) {
+        return ascendingSorting ? -1 : 1;
+      }
+      if (aProduct > bProduct) {
+        return ascendingSorting ? 1 : -1;
+      }
+
+      if (aProduct === bProduct) {
+        return a[sortedField]?.to - b[sortedField]?.to;
+      }
+      return 0;
+    });
+
+    setAscendingSorting(!ascendingSorting);
+    setActiveSorting(sortedField);
+    setProducts(sortedProducts);
+  };
+
   return (
     <section className="antialiased bg-gray-100 text-gray-600 px-4 py-10">
       <div className="flex flex-col justify-center h-full">
@@ -69,7 +102,7 @@ export const ProductsTable: React.FunctionComponent<IProductsTableProps> = (
             <h2 className="font-semibold text-gray-800">Game boards list:</h2>
             {isAdmin ? (
               <button
-                className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+                className="bg-white hover:bg-gray-100 text-gray-800 font-semibold  py-2 px-4 border border-gray-400 rounded shadow"
                 onClick={() => onHeaderButtonClick()}
               >
                 Add new board game
@@ -81,22 +114,75 @@ export const ProductsTable: React.FunctionComponent<IProductsTableProps> = (
               <table className="table-auto w-full">
                 <thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
                   <tr>
-                    <th className="p-2 whitespace-nowrap">
-                      <div className="font-semibold text-left">Title</div>
-                    </th>
-                    <th className="p-2 whitespace-nowrap">
-                      <div className="font-semibold text-left">Category</div>
-                    </th>
-                    <th className="p-2 whitespace-nowrap">
+                    <th
+                      className="p-2 whitespace-nowrap"
+                      onClick={() => sortRows("title")}
+                    >
                       <div className="font-semibold text-left">
-                        Players Number
+                        Title
+                        {activeSorting === "title" ? (
+                          <FontAwesomeIcon
+                            style={{ marginLeft: "5px" }}
+                            icon={faSort}
+                          />
+                        ) : null}
                       </div>
                     </th>
-                    <th className="p-2 whitespace-nowrap">
-                      <div className="font-semibold text-left">Prize</div>
+                    <th
+                      className="p-2 whitespace-nowrap"
+                      onClick={() => sortRows("category")}
+                    >
+                      <div className="font-semibold text-left">
+                        Category
+                        {activeSorting === "category" ? (
+                          <FontAwesomeIcon
+                            style={{ marginLeft: "5px" }}
+                            icon={faSort}
+                          />
+                        ) : null}
+                      </div>
                     </th>
-                    <th className="p-2 whitespace-nowrap">
-                      <div className="font-semibold text-left">Play Time</div>
+                    <th
+                      className="p-2 whitespace-nowrap"
+                      onClick={() => sortRows("playersNumb")}
+                    >
+                      <div className="font-semibold text-left">
+                        Players Number{" "}
+                        {activeSorting === "playersNumb" ? (
+                          <FontAwesomeIcon
+                            style={{ marginLeft: "5px" }}
+                            icon={faSort}
+                          />
+                        ) : null}
+                      </div>
+                    </th>
+                    <th
+                      className="p-2 whitespace-nowrap"
+                      onClick={() => sortRows("prize")}
+                    >
+                      <div className="font-semibold text-left">
+                        Prize{" "}
+                        {activeSorting === "prize" ? (
+                          <FontAwesomeIcon
+                            style={{ marginLeft: "5px" }}
+                            icon={faSort}
+                          />
+                        ) : null}
+                      </div>
+                    </th>
+                    <th
+                      className="p-2 whitespace-nowrap"
+                      onClick={() => sortRows("playTime")}
+                    >
+                      <div className="font-semibold text-left">
+                        Play Time{" "}
+                        {activeSorting === "playTime" ? (
+                          <FontAwesomeIcon
+                            style={{ marginLeft: "5px" }}
+                            icon={faSort}
+                          />
+                        ) : null}
+                      </div>
                     </th>
                     <th className="p-2 whitespace-nowrap">
                       <div className="font-semibold text-left">

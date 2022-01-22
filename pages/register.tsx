@@ -18,7 +18,7 @@ const Register: NextPage<IProductsData> = ({ data }) => {
       </Head>
       <Navigation />
 
-      <main className={styles.main}>
+      <main className="h-screen py-16 flex-1 flex justify-center items-center">
         <AuthForm type={AuthFormType.Registration} />
       </main>
 

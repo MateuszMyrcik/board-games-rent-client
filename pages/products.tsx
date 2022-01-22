@@ -30,7 +30,7 @@ const Products: NextPage<IProductsData> = ({ data }) => {
 
       <main>
         <ProductsTable data={data} />
-        {isAdmin ?? <Form />}
+        {isAdmin ? <Form /> : null}
       </main>
       <Footer />
     </div>

@@ -25,27 +25,6 @@ export const Form: React.FunctionComponent<IFormProps> = (props) => {
     designer: "",
     isRented: false,
   });
-  // _id: '';
-  // __v: number;
-  // title: string;
-  // body: string;
-  // playTime: IPlayTime;
-  // playersNumb: IPlayersNumb;
-  // difficultyLevel: string;
-  // category: string;
-  // image: string;
-  // reservation?: number;
-  // prize?: number;
-  // suggestAge?: number;
-  // designer: string;
-  {
-    /* <p className="text-red-500 text-xs italic">
-            Please fill out this field.
-          </p> */
-  }
-  {
-    /* border-red-500 */
-  }
 
   const handleInputChange = (event: any) => {
     const { value, id } = event.target;

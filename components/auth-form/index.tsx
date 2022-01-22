@@ -114,6 +114,7 @@ const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ type }) => {
           type="text"
           value={authState.username}
           placeholder="Username"
+          required
         />
       </div>
       <div className="mb-4">
@@ -130,6 +131,7 @@ const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ type }) => {
           type="password"
           value={authState.password}
           placeholder="******************"
+          required
         />
 
         {/* <p className="text-red text-xs italic">Please choose a password.</p> */}
@@ -150,6 +152,7 @@ const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ type }) => {
             type="password"
             value={authState.repeatPassword}
             placeholder="******************"
+            required
           />
 
           {/* <p className="text-red text-xs italic">Please choose a password.</p> */}
