@@ -27,6 +27,7 @@ export const Input: React.FunctionComponent<IInputProps> = ({
         id={id}
         type="text"
         placeholder={placeholder}
+        required
       />
     </>
   );

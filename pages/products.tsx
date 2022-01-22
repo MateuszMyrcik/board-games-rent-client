@@ -14,7 +14,9 @@ import useUserProfile from "../lib/hooks/userProfile";
 config.autoAddCss = false;
 
 const Products: NextPage<IProductsData> = ({ data }) => {
-  console.log(data[0]);
+  const { data: profile, isLoading, isError } = useUserProfile();
+
+  const isAdmin = profile?.username?.length > 0;
 
   return (
     <div className="bg-stone-50 h-screen">
@@ -28,7 +30,7 @@ const Products: NextPage<IProductsData> = ({ data }) => {
 
       <main>
         <ProductsTable data={data} />
-        <Form />
+        {isAdmin ?? <Form />}
       </main>
       <Footer />
     </div>

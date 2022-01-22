@@ -38,7 +38,6 @@ export const ProductsTable: React.FunctionComponent<IProductsTableProps> = (
 
   const onCheckboxChange = (e: any) => {
     const productId = e.target.id;
-    debugger;
     fetch(`${BoardGamesApiURL.Products}/${productId}`, {
       method: "PATCH",
       headers: {
@@ -57,14 +56,25 @@ export const ProductsTable: React.FunctionComponent<IProductsTableProps> = (
       });
   };
 
+  const onHeaderButtonClick = () => {
+    const form = document.querySelector("#products-add-form");
+    form?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <section className="antialiased bg-gray-100 text-gray-600 px-4 py-10">
       <div className="flex flex-col justify-center h-full">
         <div className="w-full  mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
-          <header className="px-5 py-4 border-b border-gray-100">
-            <h2 className="font-semibold text-gray-800">
-              Products available for you:
-            </h2>
+          <header className="px-5 py-4 border-b border-gray-100 flex justify-between items-center">
+            <h2 className="font-semibold text-gray-800">Game boards list:</h2>
+            {isAdmin ? (
+              <button
+                className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+                onClick={() => onHeaderButtonClick()}
+              >
+                Add new board game
+              </button>
+            ) : null}
           </header>
           <div className="p-3">
             <div className="overflow-x-auto">
@@ -149,8 +159,19 @@ export const ProductsTable: React.FunctionComponent<IProductsTableProps> = (
                                   />
                                 );
                               if (product.isRented)
-                                return <FontAwesomeIcon icon={faCheck} />;
-                              else return <FontAwesomeIcon icon={faTimes} />;
+                                return (
+                                  <FontAwesomeIcon
+                                    icon={faCheck}
+                                    style={{ color: "green" }}
+                                  />
+                                );
+                              else
+                                return (
+                                  <FontAwesomeIcon
+                                    icon={faTimes}
+                                    style={{ color: "red" }}
+                                  />
+                                );
                             })()}
                           </div>
                         </td>

@@ -6,6 +6,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: white;
+
+  background-image: url('/bg.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .description {

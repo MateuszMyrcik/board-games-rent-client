@@ -23,7 +23,7 @@ export const Form: React.FunctionComponent<IFormProps> = (props) => {
     prize: "",
     suggestAge: "",
     designer: "",
-    isRented: "",
+    isRented: false,
   });
   // _id: '';
   // __v: number;
@@ -54,7 +54,6 @@ export const Form: React.FunctionComponent<IFormProps> = (props) => {
       const objectName = id.split("-")[0];
       const objectKey = id.split("-")[1];
 
-      debugger;
       setForm({
         ...form,
         [`${objectName}`]: {
@@ -68,6 +67,8 @@ export const Form: React.FunctionComponent<IFormProps> = (props) => {
   };
 
   const handleSubmit = (event: any) => {
+    debugger;
+
     fetch("http://localhost:3000/products", {
       method: "POST",
       headers: {
@@ -83,6 +84,7 @@ export const Form: React.FunctionComponent<IFormProps> = (props) => {
 
   return (
     <form
+    id="products-add-form"
       onSubmit={(event) => handleSubmit(event)}
       className="antialiased bg-gray-100 text-gray-600 px-4 mb-10"
     >
