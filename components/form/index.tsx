@@ -46,8 +46,6 @@ export const Form: React.FunctionComponent<IFormProps> = (props) => {
   };
 
   const handleSubmit = (event: any) => {
-    debugger;
-
     fetch("http://localhost:3000/products", {
       method: "POST",
       headers: {
@@ -63,7 +61,7 @@ export const Form: React.FunctionComponent<IFormProps> = (props) => {
 
   return (
     <form
-    id="products-add-form"
+      id="products-add-form"
       onSubmit={(event) => handleSubmit(event)}
       className="antialiased bg-gray-100 text-gray-600 px-4 mb-10"
     >
@@ -134,7 +132,7 @@ export const Form: React.FunctionComponent<IFormProps> = (props) => {
             <Input
               inputChange={handleInputChange}
               id="prize"
-              label="Prize ($)"
+              label="Prize ($ per day)"
             />
           </div>
         </div>
