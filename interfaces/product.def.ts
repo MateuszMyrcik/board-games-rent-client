@@ -27,4 +27,5 @@ export interface IProduct {
 
 export interface IProductsData {
   data: IProduct[];
+  pageNumb: number;
 }

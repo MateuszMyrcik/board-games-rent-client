@@ -1,20 +1,15 @@
 {
-  "name": "board-game-rent",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start -- -p 3005",
-    "lint": "next lint"
-  },
+  "author": "",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.16",
     "next": "12.0.7",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-google-recaptcha": "^2.1.0"
   },
+  "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
   "devDependencies": {
     "@types/node": "17.0.8",
     "@types/react": "17.0.38",
@@ -25,9 +20,15 @@
     "tailwindcss": "^3.0.15",
     "typescript": "4.5.4"
   },
-  "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
-  "version": "1.0.0",
+  "license": "ISC",
   "main": "next.config.js",
-  "author": "",
-  "license": "ISC"
+  "name": "board-game-rent",
+  "private": true,
+  "scripts": {
+    "build": "next build",
+    "dev": " NODE_OPTIONS='--inspect=0.0.0.0' next dev ",
+    "lint": "next lint",
+    "start": "next start -- -p 3005"
+  },
+  "version": "1.0.0"
 }

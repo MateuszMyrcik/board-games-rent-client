@@ -33,8 +33,11 @@ const Navigation = (props: Props) => {
         <li className="mx-5">
           <Link href="/">Home</Link>
         </li>
+        <li>
+          <Link href="/culture">Culture</Link>
+        </li>
         <li className="mx-5">
-          <Link href="/products">Products</Link>
+          <Link href="/products/1">Products</Link>
         </li>
         {!isAdmin ? (
           <li className="mx-5 hover:cursor-pointer">

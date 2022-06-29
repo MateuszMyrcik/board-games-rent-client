@@ -4,9 +4,14 @@ import React, { useState } from "react";
 import { BoardGamesApiURL } from "../../interfaces/generic.def";
 import { IProduct } from "../../interfaces/product.def";
 import useUserProfile from "../../lib/hooks/userProfile";
+import { Pagination } from "../pagination";
 
 interface IProductsTableProps {
   data: IProduct[];
+  pagination: {
+    pageNumb: number;
+    pages: number;
+  };
 }
 
 export const ProductsTable: React.FunctionComponent<IProductsTableProps> = (
@@ -100,6 +105,11 @@ export const ProductsTable: React.FunctionComponent<IProductsTableProps> = (
         <div className="w-full  mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
           <header className="px-5 py-4 border-b border-gray-100 flex justify-between items-center">
             <h2 className="font-semibold text-gray-800">Game boards list:</h2>
+            <Pagination
+              pages={props.pagination.pages}
+              pageNumb={props.pagination.pageNumb}
+            />
+
             {isAdmin ? (
               <button
                 className="bg-white hover:bg-gray-100 text-gray-800 font-semibold  py-2 px-4 border border-gray-400 rounded shadow"

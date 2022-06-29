@@ -53,7 +53,7 @@ const Home: NextPage<IProductsData> = ({ data }) => {
             })}
           </div>
           <div className="mx-auto w-fit bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
-            <Link href="/products">See more fancy games</Link>
+            <Link href="/products/1">See more fancy games</Link>
           </div>
         </div>
       </main>

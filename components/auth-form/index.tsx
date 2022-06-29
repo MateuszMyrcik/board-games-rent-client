@@ -2,6 +2,7 @@ import Link from "next/link";
 import Router from "next/router";
 import { useState } from "react";
 import { BoardGamesApiURL } from "../../interfaces/generic.def";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export const enum AuthFormType {
   Registration,
@@ -19,34 +20,40 @@ const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ type }) => {
     repeatPassword: "",
   });
 
-  const onLoginClick = () => {
-    fetch(BoardGamesApiURL.Login, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(authState),
-    })
-      .then((response) => {
-        if (response.status === 401) {
-          alert("Invalid user data");
-          resetState();
-          throw "Invalid user data";
-        } else {
-          alert("Your are logged in!");
-          return response.json();
-        }
-      })
-      .then((response) => {
-        sessionStorage.setItem("token", response.acces_token);
+  const [isNotBot, setIsNotBot] = useState(false);
 
-        Router.push({
-          pathname: "/products",
-        });
+  const onLoginClick = () => {
+    if (!isNotBot) {
+      alert("You need to verify by Captcha!");
+    } else {
+      fetch(BoardGamesApiURL.Login, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(authState),
       })
-      .catch((err) => {
-        console.log(err);
-      });
+        .then((response) => {
+          if (response.status === 401) {
+            alert("Invalid user data");
+            resetState();
+            throw "Invalid user data";
+          } else {
+            alert("Your are logged in!");
+            return response.json();
+          }
+        })
+        .then((response) => {
+          sessionStorage.setItem("token", response.acces_token);
+
+          Router.push({
+            pathname: "/products/1",
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   const onRegisterClick = () => {
@@ -136,7 +143,6 @@ const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ type }) => {
 
         {/* <p className="text-red text-xs italic">Please choose a password.</p> */}
       </div>
-
       {type === AuthFormType.Login ? null : (
         <div className="mb-4">
           <label
@@ -158,7 +164,6 @@ const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ type }) => {
           {/* <p className="text-red text-xs italic">Please choose a password.</p> */}
         </div>
       )}
-
       <div className="flex items-center justify-center">
         <button
           className="bg-blue hover:bg-indigo-700 hover:text-white font-bold py-2 px-4 rounded border-2"
@@ -180,6 +185,14 @@ const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ type }) => {
           </a>
         ) : null}
       </div>
+      {type === AuthFormType.Login && (
+        <ReCAPTCHA
+          sitekey="6Le5cQIgAAAAAE7G0tHxHiRZHlNC5Zsd4WiLVCXc"
+          onChange={() => {
+            setIsNotBot(true);
+          }}
+        />
+      )}
     </div>
   );
 };
